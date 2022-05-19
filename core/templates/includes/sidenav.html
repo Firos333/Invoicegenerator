@@ -1,0 +1,75 @@
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    <br>
+    <!-- <br> -->
+    <div class="sidenav-header  align-items-center">
+      <a  href="/">
+        <img src="https://i.postimg.cc/J7FJWgVj/MAIN-enhanced-2.png" height="70" width="150" alt="Daily-bee Logo">
+           <p> <small>Designed for your Needs</small></p>
+      </a>
+    </div>
+    <br>
+    <div class="navbar-inner">
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Nav items -->
+        <ul class="navbar-nav">
+          <li></li>
+          <li></li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/">
+              <i class="ni ni-tv-2 text-primary"></i>
+              <span class="nav-link-text">Dashboard</span>
+            </a>
+          </li>
+        
+        
+          <li class="nav-item">
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/profile.html">
+              <i class="ni ni-single-02 text-primary"></i>
+              <span class="nav-link-text">Profile</span>
+            </a>
+          </li>
+          {% if user.is_staff or user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/apply">
+              <i class="ni ni-bullet-list-67 text-primary"></i>
+              <span class="nav-link-text">PDF Invoices</span>
+            </a>
+          </li>
+          {% endif %}
+          {% if user.is_superuser %}
+
+          <li class="nav-item">
+            <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="/add">
+              <i class="ni ni-key-25 text-primary"></i>
+              <span class="nav-link-text">Add Admin</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="/filter">
+              <i class="ni ni-folder-17 text-primary"></i>
+              <span class="nav-link-text">Page2</span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="/applications">
+              <i class="ni ni-badge text-primary"></i>
+              <span class="nav-link-text">Page3</span>
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="ni ni-user-run text-red"></i>
+              <span class="nav-link-text">Logout</span>
+            </a>
+          </li>      
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

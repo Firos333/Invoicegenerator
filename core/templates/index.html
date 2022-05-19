@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+  body
+  {
+      font-family: Arial;
+      font-size: 10pt;
+  }
+  table
+  {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+  }
+  table th
+  {
+      background-color: #F7F7F7;
+      color: #333;
+      font-weight: bold;
+  }
+  table th, table td
+  {
+      padding: 5px;
+      border: 1px solid #ccc;
+      text-align: center;
+  }
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:rgb(12, 8, 39);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

@@ -1,0 +1,214 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+    
+    function Export(taluk,district,status) {
+        $("#tblCustomers").table2excel({
+            filename: "All Candidates from "+ taluk + " of "+ district + ".xls"
+        });
+    }
+    </script>
+
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+        table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+        table th, table td
+        {
+            padding: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+      
+    </style>
+
+    
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+     
+    
+ 
+<div class="table-settings mb-4">
+  {% if clients.0  %} 
+    <div class="row align-items-center justify-content-between"></div>
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group">
+        
+              <button type="submit" class="btn btn-sm btn-outline-primary" id="btnExport" value="Export" onclick="Export('{{clients.0.taluk}}','{{clients.0.district}}','{{status}}')">Export to excel</button>
+          </div>
+      </div>
+   
+      </div>
+    
+</div>
+
+<div class="card">
+  <div class="card-header" ><b><h3>
+      All results From {{clients.0.taluk}} Taluk</h3>
+  </div></b>
+  <div class="card-body">
+    <p class="card-text">State: {{clients.0.state}}</p>
+    <p class="card-text">Taluk: {{clients.0.taluk}}, District:{{clients.0.district}}</p>
+  </div>
+  {% else %} 
+
+
+  <p style="color:red" align='center'>&nbsp &nbsp No Results To Show For this Taluk</p>
+</div>
+  {% endif %} 
+
+
+{% for message in messages %}
+<p style="color:red" align='center'>{{message}}</p></div>
+{% endfor %}
+
+  <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover" id="tblCustomers" cellspacing="0" cellpadding="0">
+        
+        {% if clients.0  %} 
+        <caption>All Applications from {{clients.0.taluk}} Taluk of the {{clients.0.district}} District</caption> 
+        {% endif %} 
+        <thead>
+              <tr>
+                  <th>Reg No.</th>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Taluk</th>
+                  <th>Phone No.</th>
+                  <th>House Name/Initail</th>
+                  <th>House No/Street</th>
+                  <th>City</th>	
+
+                  <th>District</th>						
+                  <th>State</th>
+                  <th>Pin</th>
+                  <th>Education</th>
+                  <th>Marketing Exp</th>
+                  <th>Smart Phone</th>
+                  <th>Net Banking</th>
+                  <th>Status</th>
+                  <!-- <th>Action</th> -->
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Item -->
+              
+              {% for item in clients %}   
+ 
+              <tr>
+                  <td>
+                      <a href="#" class="fw-bold">
+
+                        {{item.id}}
+                      </a>
+                  </td>
+                  <td>
+                    <span class="fw-normal">  {{item.created_date}}</span>
+                </td>
+                  <td>
+                      <span class="fw-normal">  {{item.name}}</span>
+                  </td>
+                
+              
+                  <td><span class="fw-bold">   {{item.email}}</span></td>
+                  <td><span class="fw-bold">   {{item.taluk}}</span></td>
+                  <td><span class="fw-bold">   {{item.phone}}</span></td>
+                  <td><span class="fw-bold">   {{item.addressline1}}</span></td>
+                  <td><span class="fw-bold">   {{item.addressline2}}</span></td>
+                  <td><span class="fw-bold">   {{item.city}}</span></td>
+                  <td><span class="fw-bold">   {{item.district}}</span></td>
+                  <td><span class="fw-bold">   {{item.state}}</span></td>
+                  <td><span class="fw-bold">   {{item.pin}}</span></td>
+                  <td><span class="fw-bold">   {{item.education}}</span></td>
+
+                  {% if item.is_exp == 'yes' %}
+                  <td><span class="fw-bold" style="color: #25a719">Yes</span></td>
+                  {% else %}
+                  <td><span class="fw-bold" style="color: #d60404">No</span></td>
+                  {% endif %}
+
+                  {% if item.is_smartphone == 'yes' %}
+                  <td><span class="fw-bold" style="color: #25a719">Yes</span></td>
+                  {% else %}
+                  <td><span class="fw-bold" style="color: #d60404">No</span></td>
+                  {% endif %}
+
+                  {% if item.is_banking == 'yes' %}
+                  <td><span class="fw-bold" style="color: #25a719">Yes</span></td>
+                  {% else %}
+                  <td><span class="fw-bold" style="color: #d60404">No</span></td>
+                  {% endif %}
+
+                  {% if item.is_approved == False and item.is_declined == False %}
+                  <td><span class="fw-bold" style="color: #cc990d">Processing</span></td>
+                  {% elif item.is_approved == True %}
+                  <td><span class="fw-bold" style="color: #25a719">Selected</span></td>
+                  {% elif item.is_declined == True %}
+                  <td><span class="fw-bold" style="color: #d60404">Rejected</span></td>
+                  {% endif %}
+
+                  {% if item.is_approved == False and item.is_declined == True  %}
+                  <form action="filter" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{item.id}}">
+                 
+                  <td><button type="submit" id="selected" style="color: green" onclick="return confirm('Are you sure to Onboard Register No {{item.id}} : {{item.name}}?')"  name="selectedd" value="selectedd">Select</button></td>
+                </form>
+                  {% elif item.is_approved == True and item.is_declined == False %}
+                  <form action="filter" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{item.id}}">
+                 
+                  <td><button type="submit" id="rejected" style="color: red" onclick="return confirm('Are you sure to reject Register No {{item.id}} : {{item.name}} application?')" name="rejectedd" value="rejectedd"> Reject</button></td>
+                </form>
+              </form>
+              {% elif item.is_approved == False and item.is_declined == False %}
+              <form action="filter" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="id" name="id" value="{{item.id}}">
+             
+              <td><button type="submit" id="rejected" style="color: red" onclick="return confirm('Are you sure to reject Register No {{item.id}} : {{item.name}} application?')" name="rejectedd" value="rejectedd"> Reject</button>
+                <button type="submit" id="selected" style="color: green" onclick="return confirm('Are you sure to Onboard Register No {{item.id}} : {{item.name}}?')" name="selectedd" value="selectedd">Select</button></td>
+            </form>
+                  {% endif %}
+                 
+              </tr>
+            {% endfor %}
+    
+                                  
+          </tbody>
+      </table>
+      
+  </div><br><br>
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

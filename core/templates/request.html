@@ -1,0 +1,159 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<head>
+
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script src='https://npmcdn.com/csv2geojson@latest/csv2geojson.js'></script>
+<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+<style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 90%;
+      border-radius: 5px;
+    }
+    
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    img {
+      border-radius: 5px 5px 0 0;
+    }
+    
+    .container {
+      padding: 2px 16px;
+    }
+
+    
+    </style>
+
+</head>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container" align='center'>
+            <div class="column justify-content-center">
+
+
+      <div>
+        {% for message in messages%}
+        <div class="alert alert-dismissible alert-success">
+          <button  type="button" class="close" data-dismiss="alert">
+          ×
+          </button>
+          <strong>{{message}}<strong>
+        </div>
+        {% endfor%}
+        </div>
+        
+    {% for client in clients %}   
+        <div class="card">
+        <br>
+          
+                <div class="container">
+                   
+                    <h4><b>Register No.: {{client.id}}</b></h4> 
+                    <p>Name : {{client.name}} </p> 
+                  <p>State:{{client.state}}, District: {{client.district}}  </p> 
+                  <p>Taluk:{{client.taluk}}, Pincode: {{client.pin}} </p> 
+                  <p>House name:{{client.address_line1}}</p> 
+                  <p>House No./Street Name: {{client.address_line2}}  </p> 
+                  <p>Phone:{{client.phone}}</p>
+                  <p> Email:{{client.email}}</p> 
+                  <p>City:{{client.city}}</p>
+                  <p>Education:{{client.education}}</p>
+                  {% if client.is_exp == 'yes' %}   
+                  
+                  <p>Have Experience in marketing?: <span style="color: #25a719">{{client.is_exp}}</span></p>
+                  {% else %}   
+                  <p>Have Experience in marketing?: <span style="color: #ff0000">{{client.is_exp}}</span></p>
+                  {% endif %}
+                  {% if client.is_smartphone == 'yes' %}   
+                  
+                  <p>Have a Smart Phone?: <span style="color: #25a719">{{client.is_smartphone}}</span></p>
+                  {% else %}   
+                  <p>Have a Smart Phone?:  <span style="color: #ff0000">{{client.is_smartphone}}</span></p>
+                  {% endif %}
+                  {% if client.is_banking == 'yes' %}   
+                  
+                  <p>Have Net Banking Or UPI?: <span style="color: #25a719">{{client.is_banking}}</span></p>
+                  {% else %}   
+                  <p>Have Net Banking Or UPI?: <span style="color: #ff0000">{{client.is_banking}}</span></p>
+                  {% endif %}
+
+
+                  {% if client.is_approved == False and client.is_declined == False %}
+                  <<span class="fw-bold" style="color: #cc990d">Processing</span>
+                  {% elif client.is_approved == True %}
+                  <span class="fw-bold" style="color: #25a719">Selected</span>
+                  {% elif client.is_declined == True %}
+                  <span class="fw-bold" style="color: #d60404">Rejected</span>
+                  {% endif %}
+
+            
+                </div>
+                <br>
+             
+
+           
+        </div>
+        {% endfor %}
+        </div>
+    
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+
+   
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

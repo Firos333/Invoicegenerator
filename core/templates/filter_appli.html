@@ -1,0 +1,52 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://drive.google.com/uc?export=view&id=1WmtcOCRn9cZoFfHmrhOts1aUMD5BlsPJ"></script>
+<script>
+  $(document).ready(function(){
+       $('select#district').change(function () {
+           var optionSelected = $(this).find("option:selected");
+           var valueSelected  = optionSelected.val();
+           var district_name   = optionSelected.text();
+
+
+           data = {'district' : district_name };
+           ajax('/getdetails',data,function(result){
+
+                  console.log(result);
+                  $("#taluk option").remove();
+                  for (var i = result.length - 1; i >= 0; i--) {
+                      $("#taluk").append('<option value='+ result[i].name+'>'+ result[i].name +'</option>');
+                  };
+                
+                
+
+
+               });
+       });
+  });
+</script>
+
+<style>
+  .required-field::before {
+    content: "*";
+    color: red;
+  }
+ </style> 
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+  
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
